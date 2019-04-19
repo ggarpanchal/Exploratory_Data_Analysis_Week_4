@@ -9,14 +9,14 @@ if(!exists("NEI") && !exists("SCC")){
 # Create a vector Coal_SCC_ID which contain sources ID from coal combustion-related sources
 Coal_SCC_ID <- SCC[grep(pattern = "coal", EI.Sector, ignore.case = T),]$SCC
 
-# filter NEI dataset with Coal_SCC_ID for grab only
+# filter NEI dataset with Coal_SCC_ID for grab only coal combustion-related sources data
 Coal_Combustion_Related_Emmisions_Per_Year <- NEI %>% 
                                                 filter(SCC %in% Coal_SCC_ID) %>%
                                                 group_by(year) %>%
                                                 summarise(Total_Emissions = sum(Emissions, na.rm = TRUE))
 png(filename = "Plot4.png")
 
-# Create line Plot for visulizing Total Emissions by type of source per year for Baltimore City   
+# Create line Plot for visulizing Total Emissions of source per year 
 temp_plot <- ggplot(Coal_Combustion_Related_Emmisions_Per_Year, aes(year, Total_Emissions))
 
 temp_plot + 
